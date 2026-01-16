@@ -1,0 +1,16 @@
+# Librairies pour manipulation de données
+pandas
+numpy
+
+# Visualisation
+matplotlib
+seaborn
+
+# Machine Learning
+scikit-learn
+
+# Pour gérer le déséquilibre des classes (optionnel mais utile)
+imbalanced-learn
+
+# Autres outils utiles
+tabulate   # pour afficher joliment des tableaux si besoin
