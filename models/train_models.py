@@ -15,7 +15,7 @@ df = pd.read_csv(DATA_PATH)
 
 # Check if dataset is empty
 if df.empty:
-    raise ValueError("Le fichier data_prepared.csv est vide. Attends que Personne A le remplisse.")
+    raise ValueError("Le fichier data_prepared.csv est vide.")
 
 # Separate features and target
 TARGET_COLUMN = "target"  
