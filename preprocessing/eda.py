@@ -39,3 +39,4 @@ plt.title("Distribution du montant total")
 plt.xlabel("Montant total")
 plt.ylabel("Fréquence")
 plt.show()
+
