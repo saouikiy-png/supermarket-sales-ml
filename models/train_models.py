@@ -18,7 +18,7 @@ if df.empty:
     raise ValueError("Le fichier data_prepared.csv est vide.")
 
 # Separate features and target
-TARGET_COLUMN = "target"  
+TARGET_COLUMN = "customer_type" 
 X = df.drop(TARGET_COLUMN, axis=1)
 y = df[TARGET_COLUMN]
 
@@ -68,16 +68,18 @@ results = [
     [
         "Logistic Regression",
         accuracy_score(y_test, y_pred_logreg),
-        precision_score(y_test, y_pred_logreg, zero_division=0),
-        recall_score(y_test, y_pred_logreg, zero_division=0),
-        f1_score(y_test, y_pred_logreg, zero_division=0),
+        precision_score(y_test, y_pred_logreg, average='weighted', zero_division=0),
+        recall_score(y_test, y_pred_logreg, average='weighted', zero_division=0),
+        f1_score(y_test, y_pred_logreg, average='weighted', zero_division=0),
+
     ],
     [
         "Naive Bayes",
         accuracy_score(y_test, y_pred_nb),
-        precision_score(y_test, y_pred_nb, zero_division=0),
-        recall_score(y_test, y_pred_nb, zero_division=0),
-        f1_score(y_test, y_pred_nb, zero_division=0),
+        precision_score(y_test, y_pred_nb, average='weighted', zero_division=0),
+        recall_score(y_test, y_pred_nb, average='weighted', zero_division=0),
+        f1_score(y_test, y_pred_nb, average='weighted', zero_division=0),
+
     ],
 ]
 
