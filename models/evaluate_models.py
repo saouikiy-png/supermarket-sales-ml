@@ -1,3 +1,6 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -19,7 +22,8 @@ print(df.to_string(index=False))
 
 # Identifier le meilleur modèle pour chaque métrique
 metrics = ['Accuracy', 'Precision', 'Recall', 'F1-score']
-best_models = {metric: df.loc[df[metric].idxmax()]['Model'] for metric in metrics}
+best_models = {metric: df.loc[df[metric].idxmax()]['Model']
+               for metric in metrics}
 
 print("\n=== Meilleur modèle par métrique ===")
 for metric, model in best_models.items():
@@ -35,7 +39,8 @@ for metric in metrics:
 # Recommandation finale
 print("\n=== Recommandation générale ===")
 if len(set(best_models.values())) == 1:
-    print(f"Le modèle recommandé est {list(best_models.values())[0]}, il est performant sur toutes les métriques.")
+    print(
+        f"Le modèle recommandé est {list(best_models.values())[0]}, il est performant sur toutes les métriques.")
 else:
     print("Il n'y a pas un modèle parfait pour toutes les métriques. Il faut choisir selon la priorité du projet.")
 
@@ -44,9 +49,6 @@ y_true = pd.read_csv("data/processed/data_prepared.csv")["customer_type"]
 
 # Recharger les prédictions depuis les métriques
 # (on relance les modèles pour la matrice)
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
 
 df_full = pd.read_csv("data/processed/data_prepared.csv")
 
@@ -67,11 +69,13 @@ y_pred_logreg = logreg.predict(X_test_scaled)
 
 cm = confusion_matrix(y_test, y_pred_logreg, labels=["Member", "Normal"])
 
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Member", "Normal"])
+disp = ConfusionMatrixDisplay(
+    confusion_matrix=cm, display_labels=["Member", "Normal"])
 disp.plot(cmap="Blues")
 
 plt.title("Matrice de confusion – Logistic Regression")
-plt.savefig(os.path.join(FIGURES_DIR, "confusion_matrix_logistic_regression.png"))
+plt.savefig(os.path.join(
+    FIGURES_DIR, "confusion_matrix_logistic_regression.png"))
 plt.close()
 
 print("Matrice de confusion sauvegardée pour Logistic Regression.")
@@ -79,17 +83,19 @@ print("Matrice de confusion sauvegardée pour Logistic Regression.")
 # Création des figures avec mise en valeur du meilleur modèle et tri
 for metric, default_color in zip(metrics, ["skyblue", "lightgreen", "salmon", "orchid"]):
     # Trier le DataFrame pour ce métrique (du meilleur au moins bon)
-    df_sorted = df.sort_values(by=metric, ascending=False).reset_index(drop=True)
+    df_sorted = df.sort_values(
+        by=metric, ascending=False).reset_index(drop=True)
 
-    plt.figure(figsize=(6,4))
+    plt.figure(figsize=(6, 4))
 
     # Couleurs: couleur spéciale pour le meilleur modèle
-    colors = [default_color if model != best_models[metric] else "gold" for model in df_sorted['Model']]
+    colors = [default_color if model != best_models[metric]
+              else "gold" for model in df_sorted['Model']]
 
     plt.bar(df_sorted['Model'], df_sorted[metric], color=colors)
     plt.title(f"{metric} par modèle")
     plt.ylabel(metric)
-    plt.ylim(0,1)
+    plt.ylim(0, 1)
 
     # Ajouter la valeur au-dessus de chaque barre
     for i, value in enumerate(df_sorted[metric]):

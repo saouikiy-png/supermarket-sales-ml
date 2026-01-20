@@ -6,7 +6,7 @@ df = pd.read_csv("data/raw/sales.csv")
 
 # Séparer la variable cible
 y = df["customer_type"]
-X = df.drop(columns=["customer_type", "sale_id", "product_name"])
+X = df.drop(columns=["customer_type", "sale_id", "product_name","reward_points"])
 
 # Colonnes numériques
 num_cols = [
@@ -14,7 +14,7 @@ num_cols = [
     "quantity",
     "tax",
     "total_price",
-    "reward_points"
+  
 ]
 
 # Normalisation
